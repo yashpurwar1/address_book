@@ -1,0 +1,240 @@
+UC1 
+
+CREATE DATABASE address_booK_service;
+Query OK, 1 row affected (0.12 sec)
+
+
+SHOW DATABASES;
++----------------------+
+| Database             |
++----------------------+
+| address_book_service |
+| information_schema   |
+| mysql                |
+| payroll_service      |
+| performance_schema   |
+| sys                  |
+| world                |
++----------------------+
+7 rows in set (0.08 sec)
+
+
+USE address_booK_service;
+Database changed
+
+
+UC2
+
+CREATE TABLE address_book
+(
+    id              INT UNSIGNED NOT NULL AUTO_INCREMENT,
+    first_name      VARCHAR(50) NOT NULL,
+    last_name       VARCHAR(50) NOT NULL,
+    address         VARCHAR(100) NOT NULL,
+    city            VARCHAR(25) NOT NULL,
+    state           VARCHAR(15) NOT NULL,
+    zip             INT(7) NOT NULL,
+    email           VARCHAR(50) NOT NULL,
+    PRIMARY KEY(id)
+);
+
+Query OK, 0 rows affected, 1 warning (1.23 sec)
+
+
+DESCRIBE address_book;
++------------+--------------+------+-----+---------+----------------+
+| Field      | Type         | Null | Key | Default | Extra          |
++------------+--------------+------+-----+---------+----------------+
+| id         | int unsigned | NO   | PRI | NULL    | auto_increment |
+| first_name | varchar(50)  | NO   |     | NULL    |                |
+| last_name  | varchar(50)  | NO   |     | NULL    |                |
+| address    | varchar(100) | NO   |     | NULL    |                |
+| city       | varchar(25)  | NO   |     | NULL    |                |
+| state      | varchar(15)  | NO   |     | NULL    |                |
+| zip        | int          | NO   |     | NULL    |                |
+| email      | varchar(50)  | NO   |     | NULL    |                |
++------------+--------------+------+-----+---------+----------------+
+8 rows in set (0.07 sec)
+
+
+UC3
+
+INSERT INTO address_book(first_name, last_name, address, city, state, zip, email) VALUES
+    ('Atul', 'Tiwari', 'Kothrud', 'Pune', 'Maharastra', '411038', 'a4attu@gmail.com'),
+    ('Arvind', 'Kumar', 'Main Market', 'Kabrai', 'Uttar Pradesh', '285205', 'arvind@gmail.com'),
+    ('Saket', 'Savita', 'Seer', 'Kadaura', 'Uttar Pradesh', '285203', 'saketsavita@gmail.com'),
+    ('Paras', 'Sindhi', 'Bazar', 'Kadaura', 'Uttar Pradesh', '285203', 'paras@gmail.com'),
+    ('Vishal', 'Gupta', 'Bajariya', 'Rewa', 'Madhya Pradesh', '210152', 'vishal@gmail.com');
+
+Query OK, 5 rows affected (0.12 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+
+SELECT * FROM address_book;
+
++----+------------+-----------+-------------+---------+----------------+--------+-----------------------+
+| id | first_name | last_name | address     | city    | state          | zip    | email                 |
++----+------------+-----------+-------------+---------+----------------+--------+-----------------------+
+|  1 | Atul       | Tiwari    | Kothrud     | Pune    | Maharastra     | 411038 | a4attu@gmail.com      |
+|  2 | Arvind     | Kumar     | Main Market | Kabrai  | Uttar Pradesh  | 285205 | arvind@gmail.com      |
+|  3 | Saket      | Savita    | Seer        | Kadaura | Uttar Pradesh  | 285203 | saketsavita@gmail.com |
+|  4 | Paras      | Sindhi    | Bazar       | Kadaura | Uttar Pradesh  | 285203 | paras@gmail.com       |
+|  5 | Vishal     | Gupta     | Bajariya    | Rewa    | Madhya Pradesh | 210152 | vishal@gmail.com      |
++----+------------+-----------+-------------+---------+----------------+--------+-----------------------+
+5 rows in set (0.00 sec)
+
+
+
+UC4
+
+UPDATE address_book SET email='arvind696@gmail.com' WHERE first_name='Arvind';
+
+Query OK, 1 row affected (0.09 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+
+SELECT * FROM address_book;
+
++----+------------+-----------+-------------+---------+----------------+--------+-----------------------+
+| id | first_name | last_name | address     | city    | state          | zip    | email                 |
++----+------------+-----------+-------------+---------+----------------+--------+-----------------------+
+|  1 | Atul       | Tiwari    | Kothrud     | Pune    | Maharastra     | 411038 | a4attu@gmail.com      |
+|  2 | Arvind     | Kumar     | Main Market | Kabrai  | Uttar Pradesh  | 285205 | arvind696@gmail.com   |
+|  3 | Saket      | Savita    | Seer        | Kadaura | Uttar Pradesh  | 285203 | saketsavita@gmail.com |
+|  4 | Paras      | Sindhi    | Bazar       | Kadaura | Uttar Pradesh  | 285203 | paras@gmail.com       |
+|  5 | Vishal     | Gupta     | Bajariya    | Rewa    | Madhya Pradesh | 210152 | vishal@gmail.com      |
++----+------------+-----------+-------------+---------+----------------+--------+-----------------------+
+5 rows in set (0.03 sec)
+
+
+UC5
+
+DELETE FROM address_book WHERE first_name='Arvind';
+
+Query OK, 1 row affected (0.11 sec)
+
+
+SELECT * FROM address_book;
+
++----+------------+-----------+----------+---------+----------------+--------+-----------------------+
+| id | first_name | last_name | address  | city    | state          | zip    | email                 |
++----+------------+-----------+----------+---------+----------------+--------+-----------------------+
+|  1 | Atul       | Tiwari    | Kothrud  | Pune    | Maharastra     | 411038 | a4attu@gmail.com      |
+|  3 | Saket      | Savita    | Seer     | Kadaura | Uttar Pradesh  | 285203 | saketsavita@gmail.com |
+|  4 | Paras      | Sindhi    | Bazar    | Kadaura | Uttar Pradesh  | 285203 | paras@gmail.com       |
+|  5 | Vishal     | Gupta     | Bajariya | Rewa    | Madhya Pradesh | 210152 | vishal@gmail.com      |
++----+------------+-----------+----------+---------+----------------+--------+-----------------------+
+4 rows in set (0.00 sec)
+
+
+UC6
+
+SELECT * FROM address_book WHERE city='Rewa' OR city='Kadaura';
+
++----+------------+-----------+----------+---------+----------------+--------+-----------------------+
+| id | first_name | last_name | address  | city    | state          | zip    | email                 |
++----+------------+-----------+----------+---------+----------------+--------+-----------------------+
+|  3 | Saket      | Savita    | Seer     | Kadaura | Uttar Pradesh  | 285203 | saketsavita@gmail.com |
+|  4 | Paras      | Sindhi    | Bazar    | Kadaura | Uttar Pradesh  | 285203 | paras@gmail.com       |
+|  5 | Vishal     | Gupta     | Bajariya | Rewa    | Madhya Pradesh | 210152 | vishal@gmail.com      |
++----+------------+-----------+----------+---------+----------------+--------+-----------------------+
+3 rows in set (0.00 sec)
+
+
+UC7
+
+SELECT COUNT(first_name), city FROM address_book GROUP BY city;
+
++-------------------+---------+
+| COUNT(first_name) | city    |
++-------------------+---------+
+|                 1 | Pune    |
+|                 2 | Kadaura |
+|                 1 | Rewa    |
++-------------------+---------+
+3 rows in set (0.00 sec)
+
+
+SELECT COUNT(first_name), state FROM address_book GROUP BY state;
++-------------------+----------------+
+| COUNT(first_name) | state          |
++-------------------+----------------+
+|                 1 | Maharastra     |
+|                 2 | Uttar Pradesh  |
+|                 1 | Madhya Pradesh |
++-------------------+----------------+
+3 rows in set (0.00 sec)
+
+
+UC8
+
+SELECT * FROM address_book WHERE city='Kadaura' ORDER BY first_name;
+
++----+------------+-----------+---------+---------+---------------+--------+-----------------------+
+| id | first_name | last_name | address | city    | state         | zip    | email                 |
++----+------------+-----------+---------+---------+---------------+--------+-----------------------+
+|  4 | Paras      | Sindhi    | Bazar   | Kadaura | Uttar Pradesh | 285203 | paras@gmail.com       |
+|  3 | Saket      | Savita    | Seer    | Kadaura | Uttar Pradesh | 285203 | saketsavita@gmail.com |
++----+------------+-----------+---------+---------+---------------+--------+-----------------------+
+2 rows in set (0.00 sec)
+
+
+UC9
+
+ALTER TABLE address_book ADD type VARCHAR(10);
+
+Query OK, 0 rows affected (1.65 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+
+UPDATE address_book SET type='Friends' WHERE first_name='Atul' OR first_name='Arvind';
+
+Query OK, 1 row affected (0.22 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+
+UPDATE address_book SET type='Family' WHERE first_name='Saket';
+
+Query OK, 1 row affected (0.12 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+
+UPDATE address_book SET type='Profession' WHERE first_name='Paras';
+
+Query OK, 1 row affected (0.14 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+
+UC10
+
+SELECT COUNT(*), type FROM address_book GROUP BY type;
+
++----------+------------+
+| COUNT(*) | type       |
++----------+------------+
+|        1 | Friends    |
+|        1 | Family     |
+|        1 | Profession |
+|        1 | NULL       |
++----------+------------+
+4 rows in set (0.04 sec)
+
+
+UC11
+
+INSERT INTO address_book(first_name, last_name, address, city, state, zip, email, type) VALUES
+    ('Piyush', 'Sharma', 'Chilpura', 'Kadaura', 'Uttar Pradesh', 285203, 'piyush@gmail.com', 'Family'),
+    ('Piyush', 'Sharma', 'Chilpura', 'Kadaura', 'Uttar Pradesh', 285203, 'piyush@gmail.com', 'Friend');
+
++----+------------+-----------+----------+---------+----------------+--------+-----------------------+------------+
+| id | first_name | last_name | address  | city    | state          | zip    | email                 | type       |
++----+------------+-----------+----------+---------+----------------+--------+-----------------------+------------+
+|  1 | Atul       | Tiwari    | Kothrud  | Pune    | Maharastra     | 411038 | a4attu@gmail.com      | Friends    |
+|  3 | Saket      | Savita    | Seer     | Kadaura | Uttar Pradesh  | 285203 | saketsavita@gmail.com | Family     |
+|  4 | Paras      | Sindhi    | Bazar    | Kadaura | Uttar Pradesh  | 285203 | paras@gmail.com       | Profession |
+|  5 | Vishal     | Gupta     | Bajariya | Rewa    | Madhya Pradesh | 210152 | vishal@gmail.com      | NULL       |
+|  6 | Piyush     | Sharma    | Chilpura | Kadaura | Uttar Pradesh  | 285203 | piyush@gmail.com      | Family     |
+|  7 | Piyush     | Sharma    | Chilpura | Kadaura | Uttar Pradesh  | 285203 | piyush@gmail.com      | Friend     |
++----+------------+-----------+----------+---------+----------------+--------+-----------------------+------------+
+6 rows in set (0.05 sec)
+
